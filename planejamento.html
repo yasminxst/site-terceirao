@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendário Financeiro - Formatura 2025</title>
+  <link rel="stylesheet" href="style.css">
+   <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <h1>💰 Calendário Financeiro da Formatura</h1>
+  <h2>Planejamento de arrecadação - Ano 2025</h2>
+
+  <div class="calendario" id="calendario"></div>
+
+  <script>
+    const meses = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+
+    const eventos = [];
+
+    // 🎊 Festa na cidade (a cada 2 meses)
+    for (let i = 0; i < 12; i += 2) {
+      eventos.push({
+        mes: i,
+        tipo: "festa",
+        nome: "Festa na Cidade 🎊",
+        descricao: "Evento grande com música e comida para arrecadar fundos."
+      });
+    }
+
+    // Bingo (a cada 2 meses alternados)
+    for (let i = 1; i < 12; i += 2) {
+      eventos.push({
+        mes: i,
+        tipo: "bingo",
+        nome: "Bingo Solidário 🎲",
+        descricao: "Bingo beneficente com prêmios doados e renda para a formatura."
+      });
+    }
+
+    //  Rifas temáticas (com datas comemorativas)
+    const rifas = [
+      { mes: 0, nome: "Rifa de Ano Novo ", desc: "Início do ano com sorteio simbólico." },
+      { mes: 1, nome: "Rifa de Carnaval ", desc: "Rifa temática de Carnaval." },
+      { mes: 2, nome: "Rifa de Outono ", desc: "Rifa simples com prêmios locais." },
+      { mes: 3, nome: "Rifa de Páscoa ", desc: "Rifa especial com cestas de chocolate." },
+      { mes: 4, nome: "Rifa do Dia das Mães ", desc: "Rifa de presentes e flores." },
+      { mes: 5, nome: "Rifa do Dia dos Namorados ", desc: "Rifa com brindes românticos." },
+      { mes: 6, nome: "Rifa de Inverno ", desc: "Rifa com cobertores e canecas." },
+      { mes: 7, nome: "Rifa do Dia dos Pais ", desc: "Rifa com prêmios masculinos." },
+      { mes: 8, nome: "Rifa da Primavera ", desc: "Rifa temática leve e divertida." },
+      { mes: 9, nome: "Rifa de Outubro Rosa ", desc: "Campanha solidária + sorteio." },
+      { mes: 10, nome: "Rifa de Novembro Azul ", desc: "Rifa de conscientização." },
+      { mes: 11, nome: "Rifa de Natal ", desc: "Rifa especial de fim de ano." }
+    ];
+    rifas.forEach(r => eventos.push({ mes: r.mes, tipo: "rifa", nome: r.nome, descricao: r.desc }));
+
+    //  Aluguel de pula-pula (em meses de festas infantis)
+    [3, 6, 9, 11].forEach(m => {
+      eventos.push({
+        mes: m,
+        tipo: "pulapula",
+        nome: "Aluguel de Pula-Pula ",
+        descricao: "Locação de pula-pula em festas infantis da cidade."
+      });
+    });
+
+    // Barraquinhas nas festas da cidade
+    [6, 5, 7, 10].forEach(m => {
+      eventos.push({
+        mes: m,
+        tipo: "barraquinha",
+        nome: "Barraquinha na Festa         ",
+        descricao: "Venda de comidas e bebidas nas festas locais."
+      });
+    });
+
+    // Venda de sucos e sanduíches (todo mês letivo)
+    for (let i = 0; i < 12; i++) {
+      eventos.push({
+        mes: i,
+        tipo: "recreio",
+        nome: "Venda de Sucos e Sanduíches ",
+        descricao: "Venda no recreio para arrecadar fundos continuamente."
+      });
+    }
+
+    // Correio Elegante (Junho)
+    eventos.push({
+      mes: 5,
+      tipo: "tema",
+      nome: "Correio Elegante 💌",
+      descricao: "Atividade divertida de troca de bilhetes no mês dos namorados."
+    });
+
+    // Venda de Pastéis Juninos (Julho)
+    eventos.push({
+      mes: 6,
+      tipo: "extra",
+      nome: "Venda de Pastéis Juninos ",
+      descricao: "Venda de pastéis típicos durante o mês de festas juninas."
+    });
+
+    //  Montar o calendário
+    const container = document.getElementById("calendario");
+    meses.forEach((mes, i) => {
+      const divMes = document.createElement("div");
+      divMes.className = "mes";
+      divMes.innerHTML = `<h3>${mes}</h3>`;
+
+      const evMes = eventos.filter(e => e.mes === i);
+      if (evMes.length > 0) {
+        evMes.forEach(e => {
+          const evDiv = document.createElement("div");
+          evDiv.className = `evento ${e.tipo}`;
+          evDiv.innerHTML = `<strong>${e.nome}</strong><br><small>${e.descricao}</small>`;
+          divMes.appendChild(evDiv);
+        });
+      } else {
+        divMes.innerHTML += `<p><em>Sem eventos este mês</em></p>`;
+      }
+
+      container.appendChild(divMes);
+    });
+  </script>
+
+</body>
+</html>
